@@ -3,20 +3,19 @@
 #include <stdio.h>
 #include "disastrOS.h"
 #include "disastrOS_syscalls.h"
-#include "disastrOS_exec.c"
 
-void internal_fork() {
-  static PCB* new_pcb;
+void internal_vfork() {
+	static PCB* new_pcb;
   new_pcb=PCB_alloc();
   if (!new_pcb) {
     running->syscall_retvalue=DSOS_ESPAWN;
     return;
   } 
 
-  new_pcb->status=Ready;
+  new_pcb->status=running;
 
   // sets the parent of the newly created process to the running process
-  new_pcb->parent=running;
+  new_pcb->parent=ready;
   
   // adds a pointer to the new process to the children list of running
   PCBPtr* new_pcb_ptr=PCBPtr_alloc(new_pcb);
@@ -28,7 +27,4 @@ void internal_fork() {
 
   //sets the retvalue for the caller to the new pid
   running->syscall_retvalue=new_pcb->pid;
-  printf("exec ");
-  //int exec_result = disastrOS_exec();
-  //printf("%d/n", exec_result);
 }

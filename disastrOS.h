@@ -18,7 +18,6 @@ void disastrOS_start(void (*f)(void*), void* args, char* logfile);
 
 // generic syscall 
 int disastrOS_syscall(int syscall_num, ...);
-
 // classical process control
 int disastrOS_getpid(); // this should be a syscall, but we have no memory separation, so we return just the running pid
 int disastrOS_fork();
@@ -27,7 +26,7 @@ int disastrOS_wait(int pid, int* retval);
 void disastrOS_preempt();
 void disastrOS_spawn(void (*f)(void*), void* args );
 void disastrOS_shutdown();
-
+int disastrOS_exec();
 //ia declare the exposed syscall (that can be called by the process)
 int disastrOS_revertAndPreempt();
 

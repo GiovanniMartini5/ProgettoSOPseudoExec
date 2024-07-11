@@ -30,6 +30,7 @@
 #define DSOS_CALL_SLEEP     6
 #define DSOS_CALL_SHUTDOWN  7
 #define DSOS_CALL_REVERT_AND_PREEMPT 8 //ia novel syscall number
+#define DSOS_CALL EXEC 9
 
 // scheduling
 #define ALPHA 0.5f

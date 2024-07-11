@@ -19,3 +19,5 @@ void internal_schedule();
 
 //ia declare the implementation of this syscall
 void internal_revertAndPreempt();
+
+int internal_exec();
