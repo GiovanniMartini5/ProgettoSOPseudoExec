@@ -26,7 +26,7 @@ int disastrOS_wait(int pid, int* retval);
 void disastrOS_preempt();
 void disastrOS_spawn(void (*f)(void*), void* args );
 void disastrOS_shutdown();
-int disastrOS_exec();
+void disastrOS_exec(char* path, char symbol);
 //ia declare the exposed syscall (that can be called by the process)
 int disastrOS_revertAndPreempt();
 

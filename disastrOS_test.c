@@ -23,7 +23,7 @@ void initFunction(void* args) {
   }
   disastrOS_printStatus();
   int exec_result = disastrOS_exec();
-  printf("%d/n", exec_result);
+  printf("%d I RISULTATI SONO:/n", exec_result);
   // now we are in init
   // we pretend to fork
   printf("fork ");

@@ -160,9 +160,9 @@ void disastrOS_shutdown() {
 int disastrOS_revertAndPreempt() {
   return disastrOS_syscall(DSOS_CALL_REVERT_AND_PREEMPT);
 }
-int disastrOS_exec(){
+void disastrOS_exec(char* path, char symbol){
 	return disastrOS_syscall(DSOS_CALL_EXEC);
-
+}
 int disastrOS_getpid(){
   if (! running)
     return -1;
@@ -183,3 +183,5 @@ void disastrOS_printStatus(){
   PCBList_print(&zombie_list);
   printf("\n***********************************************\n\n");
 };
+
+

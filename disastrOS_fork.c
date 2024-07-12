@@ -28,7 +28,6 @@ void internal_fork() {
 
   //sets the retvalue for the caller to the new pid
   running->syscall_retvalue=new_pcb->pid;
-  printf("exec ");
-  //int exec_result = disastrOS_exec();
-  //printf("%d/n", exec_result);
+  
+ 
 }
