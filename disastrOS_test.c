@@ -22,8 +22,8 @@ void initFunction(void* args) {
     printf("ERROR, empty ready list\n");
   }
   disastrOS_printStatus();
-  int exec_result = disastrOS_exec();
-  printf("%d I RISULTATI SONO:/n", exec_result);
+  disastrOS_exec("/home/giovanni/Desktop/ProgettoSoPseudoExec/functions.c", "example_function");
+  
   // now we are in init
   // we pretend to fork
   printf("fork ");

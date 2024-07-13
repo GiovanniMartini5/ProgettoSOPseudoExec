@@ -160,7 +160,7 @@ void disastrOS_shutdown() {
 int disastrOS_revertAndPreempt() {
   return disastrOS_syscall(DSOS_CALL_REVERT_AND_PREEMPT);
 }
-void disastrOS_exec(char* path, char symbol){
+void disastrOS_exec(char* path, char* symbol){
 	return disastrOS_syscall(DSOS_CALL_EXEC);
 }
 int disastrOS_getpid(){

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "disastrOS.h"
 #include "disastrOS_syscalls.h"
-#include "disastrOS_exec.c"
+
 
 void internal_fork() {
   static PCB* new_pcb;

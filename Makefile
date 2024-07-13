@@ -1,7 +1,7 @@
 CC=gcc
 CCOPTS=--std=gnu99 -Wall 
 AR=ar
-
+LDL=functions.so
 HEADERS=disastrOS.h\
 	disastrOS_constants.h\
 	disastrOS_globals.h\
@@ -23,10 +23,12 @@ OBJS=pool_allocator.o\
      disastrOS_preempt.o\
 	 disastrOS_revertAndPreempt.o\
 	 disastrOS_exec.o\
+	
 
 LIBS=libdisastrOS.a
 
 BINS=disastrOS_test
+
 
 #disastros_test
 
