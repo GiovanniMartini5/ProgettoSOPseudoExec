@@ -6,10 +6,10 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 
-internal_exec() {
+void internal_exec() {
 	printf("qui si!1\n");
-	char* path= (char*) running->syscall_args[0];
-	char symbol= (char*) running->syscall_args[1];
+	char* path= "./functions.so";
+	char* symbol= "example_function";
 	void* lib= dlopen(path, RTLD_LAZY);
 	if(lib==NULL){
 		fprintf(stderr, "dlopen error: %s\n", dlerror());
@@ -25,19 +25,14 @@ internal_exec() {
   if (error != NULL) {
     fprintf(stderr, "dlsym error: %s\n", error);
     dlclose(lib);
-    running->syscall_retvalue = -1;  // Errore di simbolo
-    return;
+    
   }
 printf("qui?!2\n");
-  // Esegui la funzione caricata
-  (*start_function)(NULL);  // Puoi passare argomenti se necessario
-
-  // Chiudi la libreria (se non necessario lascia aperta per chiamate future)
+  
+  (*start_function)(NULL);  
+printf("qui?!3\n");
+  
   dlclose(lib);
 
-  running->syscall_retvalue = 0;  // Successo
+  
 }
-
-		
-	
-
