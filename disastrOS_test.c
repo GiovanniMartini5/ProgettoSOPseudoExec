@@ -22,7 +22,7 @@ void initFunction(void* args) {
     printf("ERROR, empty ready list\n");
   }
   disastrOS_printStatus();
-  disastrOS_exec("/functions.c", "example_function");
+  disastrOS_exec("./functions.so", "example_function");
   
   // now we are in init
   // we pretend to fork

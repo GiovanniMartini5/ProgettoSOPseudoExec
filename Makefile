@@ -9,6 +9,7 @@ HEADERS=disastrOS.h\
 	disastrOS_syscalls.h\
 	linked_list.h\
 	pool_allocator.h\
+	functions.h
 
 OBJS=pool_allocator.o\
      linked_list.o\
@@ -23,7 +24,7 @@ OBJS=pool_allocator.o\
      disastrOS_preempt.o\
 	 disastrOS_revertAndPreempt.o\
 	 disastrOS_exec.o\
-	 functions.o\
+	
 	
 
 LIBS=libdisastrOS.a
@@ -41,8 +42,8 @@ all: $(LIBS) $(BINS)
 	$(CC) $(CCOPTS) -c -o $@ $<
 
 libdisastrOS.a: $(OBJS) 
-	$(AR) -rcs $@ $^
-
+	$(AR) -rcs $@ $^ 
+	$(RM) $(OBJS)
 disastrOS_test: disastrOS_test.c $(LIBS) $(SL)
 	$(CC) $(CCOPTS) -o $@ disastrOS_test.c $(LIBS) -ldl
 

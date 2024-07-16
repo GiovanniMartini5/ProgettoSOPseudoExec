@@ -109,7 +109,7 @@ void disastrOS_start(void (*f)(void*), void* f_args, char* logfile){
   syscall_numarg[DSOS_CALL_SHUTDOWN]      = 0;
   
   syscall_vector[DSOS_CALL_EXEC]      = internal_exec;
-  syscall_numarg[DSOS_CALL_EXEC]      = 0;
+  syscall_numarg[DSOS_CALL_EXEC]      = 2;
   //ia install the new syscall in the vectors
   syscall_vector[DSOS_CALL_REVERT_AND_PREEMPT] = internal_revertAndPreempt;
   syscall_numarg[DSOS_CALL_REVERT_AND_PREEMPT] = 0;
@@ -161,7 +161,7 @@ int disastrOS_revertAndPreempt() {
   return disastrOS_syscall(DSOS_CALL_REVERT_AND_PREEMPT);
 }
 void disastrOS_exec(char* path, char* symbol){
-	return disastrOS_syscall(DSOS_CALL_EXEC);
+	return disastrOS_syscall(DSOS_CALL_EXEC, path, symbol);
 }
 int disastrOS_getpid(){
   if (! running)
