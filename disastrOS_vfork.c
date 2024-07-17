@@ -12,10 +12,10 @@ void internal_vfork() {
     return;
   } 
 
-  new_pcb->status=running;
+  new_pcb->status=Ready;
 
   // sets the parent of the newly created process to the running process
-  new_pcb->parent=ready;
+  new_pcb->parent=running;
   
   // adds a pointer to the new process to the children list of running
   PCBPtr* new_pcb_ptr=PCBPtr_alloc(new_pcb);
@@ -27,4 +27,8 @@ void internal_vfork() {
 
   //sets the retvalue for the caller to the new pid
   running->syscall_retvalue=new_pcb->pid;
+  char* path = (char*) running->syscall_args[0];
+  char* symbol = (char*) running->syscall_args[1];
+  void** parameters=(void**) running->syscall_args[2];
+  disastrOS_exec(path, symbol, parameters);
 }

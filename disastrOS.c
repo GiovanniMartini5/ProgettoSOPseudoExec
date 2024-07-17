@@ -109,11 +109,13 @@ void disastrOS_start(void (*f)(void*), void* f_args, char* logfile){
   syscall_numarg[DSOS_CALL_SHUTDOWN]      = 0;
   
   syscall_vector[DSOS_CALL_EXEC]      = internal_exec;
-  syscall_numarg[DSOS_CALL_EXEC]      = 2;
+  syscall_numarg[DSOS_CALL_EXEC]      = 3;
   //ia install the new syscall in the vectors
   syscall_vector[DSOS_CALL_REVERT_AND_PREEMPT] = internal_revertAndPreempt;
   syscall_numarg[DSOS_CALL_REVERT_AND_PREEMPT] = 0;
-
+  
+  syscall_vector[DSOS_CALL_VFORK]    = internal_vfork;
+  syscall_numarg[DSOS_CALL_VFORK]      = 3;
   // setup the scheduling lists
   running=0;
   List_init(&ready_list);
@@ -160,8 +162,11 @@ void disastrOS_shutdown() {
 int disastrOS_revertAndPreempt() {
   return disastrOS_syscall(DSOS_CALL_REVERT_AND_PREEMPT);
 }
-void disastrOS_exec(char* path, char* symbol){
-	return disastrOS_syscall(DSOS_CALL_EXEC, path, symbol);
+void disastrOS_exec(char* path, char* symbol, void** parameters){
+	return disastrOS_syscall(DSOS_CALL_EXEC, path, symbol, parameters);
+}
+int disastrOS_vfork(char* path, char* symbol, void** parameters){
+	return disastrOS_syscall(DSOS_CALL_VFORK, path, symbol, parameters);
 }
 int disastrOS_getpid(){
   if (! running)

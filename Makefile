@@ -24,6 +24,7 @@ OBJS=pool_allocator.o\
      disastrOS_preempt.o\
 	 disastrOS_revertAndPreempt.o\
 	 disastrOS_exec.o\
+	 disastrOS_vfork.o\
 	
 	
 

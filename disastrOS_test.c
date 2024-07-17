@@ -22,12 +22,21 @@ void initFunction(void* args) {
     printf("ERROR, empty ready list\n");
   }
   disastrOS_printStatus();
-  disastrOS_exec("./functions.so", "example_function");
+  /*disastrOS_exec("./functions.so", "example_function", NULL);
+  int params1=1;
+  int params2=2;
+  void* parameters[]={&params1,&params2};
+  disastrOS_exec("./functions.so", "calculate", parameters);
+  char nome[] = "Giovanni";
+  char cognome[] = "Martini";
+  int matricola=1801491;
+  void* parameters2[]={nome,cognome,&matricola};
+  disastrOS_exec("./functions.so", "identity", parameters2);*/
   
   // now we are in init
   // we pretend to fork
-  printf("fork ");
-  int fork_result = disastrOS_fork();
+  printf("vfork ");
+  int fork_result = disastrOS_vfork("./functions.so", "example_function", NULL);
   printf(" child pid: %d\n", fork_result);
   disastrOS_printStatus();
 
@@ -48,12 +57,19 @@ void initFunction(void* args) {
   disastrOS_printStatus();
 
   // parent forks three times
-  printf("fork ");
-  fork_result = disastrOS_fork();
+  printf("vfork ");
+  int params1=1;
+  int params2=2;
+  void* parameters[]={&params1,&params2};
+  fork_result = disastrOS_vfork("./functions.so", "calculate", parameters);
   printf(" child pid: %d\n", fork_result);
   disastrOS_printStatus();
-  printf("fork ");
-  fork_result = disastrOS_fork();
+  printf("vfork ");
+  char nome[] = "Giovanni";
+  char cognome[] = "Martini";
+  int matricola=1801491;
+  void* parameters2[]={nome,cognome,&matricola};
+  fork_result = disastrOS_vfork("./functions.so", "identity", parameters2);
   printf(" child pid: %d\n", fork_result);
   disastrOS_printStatus();
   printf("fork ");

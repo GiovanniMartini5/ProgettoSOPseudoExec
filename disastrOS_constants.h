@@ -18,6 +18,7 @@
 //ia custom error code
 #define DSOS_EREVERT_AND_PREEMPT -8
 #define DSOS_EEXEC -9
+#define DSOS_EVFORK -10
 
 
 // syscall numbers
@@ -32,6 +33,7 @@
 #define DSOS_CALL_SHUTDOWN  7
 #define DSOS_CALL_REVERT_AND_PREEMPT 8 //ia novel syscall number
 #define DSOS_CALL_EXEC 9
+#define DSOS_CALL_VFORK 10
 
 // scheduling
 #define ALPHA 0.5f

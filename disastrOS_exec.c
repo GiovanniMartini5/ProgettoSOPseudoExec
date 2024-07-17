@@ -10,10 +10,11 @@ void internal_exec() {
 	printf("qui si!1\n");
 	char* path = (char*) running->syscall_args[0];
     char* symbol = (char*) running->syscall_args[1];
+    void** parameters=(void**) running->syscall_args[2];
 	void* lib= dlopen(path, RTLD_LAZY);
 	if(lib==NULL){
 		printf(stderr, "dlopen error: %s\n", dlerror());
-		return -1;
+		return;
 	}
 	printf("qui pure\n");
 	
@@ -27,7 +28,7 @@ void internal_exec() {
     
   }
   
-  (*start_function)(NULL);  
+  (*start_function)(parameters);  
 
   
   dlclose(lib);

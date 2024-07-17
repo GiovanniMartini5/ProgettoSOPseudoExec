@@ -21,3 +21,5 @@ void internal_schedule();
 void internal_revertAndPreempt();
 
 void internal_exec();
+
+void internal_vfork();
