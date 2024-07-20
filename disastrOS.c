@@ -163,7 +163,7 @@ int disastrOS_revertAndPreempt() {
   return disastrOS_syscall(DSOS_CALL_REVERT_AND_PREEMPT);
 }
 void disastrOS_exec(char* path, char* symbol, void** parameters){
-	return disastrOS_syscall(DSOS_CALL_EXEC, path, symbol, parameters);
+	disastrOS_syscall(DSOS_CALL_EXEC, path, symbol, parameters);
 }
 int disastrOS_vfork(char* path, char* symbol, void** parameters){
 	return disastrOS_syscall(DSOS_CALL_VFORK, path, symbol, parameters);
@@ -186,7 +186,19 @@ void disastrOS_printStatus(){
   PCBList_print(&waiting_list);
   printf("\nZombie: ");
   PCBList_print(&zombie_list);
+  
+  //se exec è abilitato allora lo esegue
+  printf("\nIl processo ha eseguito: ");
+  if(running && running->PCB_exec==1){
+	 disastrOS_exec(running->exec_path, running->exec_symbol, running->exec_parameters);
+	 running->PCB_exec=0;
+	}
+  else{
+   printf("niente\n");
+  }
   printf("\n***********************************************\n\n");
+  
+  
 };
 
 

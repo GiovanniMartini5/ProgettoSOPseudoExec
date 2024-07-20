@@ -52,6 +52,8 @@ PCB* PCB_alloc() {
   pcb->parent=0;
   pcb->timer=0;
   List_init(&pcb->children);
+  pcb->PCB_exec=0;
+  
   //MemoryInfo_init(&pcb->memory);
   //CPUState_init(&pcb->cpu);
 

@@ -24,6 +24,10 @@ typedef struct PCB{
   ListHead children;
   ucontext_t cpu_state;
   struct TimerItem *timer;
+  int PCB_exec;
+  char* exec_path;
+  char* exec_symbol;
+  void* exec_parameters;
 
   //we are really rude :) the stack is INSIDE the pcb
   //forgive me for the bestiality

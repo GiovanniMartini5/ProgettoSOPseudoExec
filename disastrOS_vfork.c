@@ -27,8 +27,11 @@ void internal_vfork() {
 
   //sets the retvalue for the caller to the new pid
   running->syscall_retvalue=new_pcb->pid;
-  char* path = (char*) running->syscall_args[0];
-  char* symbol = (char*) running->syscall_args[1];
-  void** parameters=(void**) running->syscall_args[2];
-  disastrOS_exec(path, symbol, parameters);
+  
+  //setta il nuovo processo in modo tale da chiamare la exec
+  new_pcb->PCB_exec=1;
+  new_pcb->exec_path=(char*) running->syscall_args[0];
+  new_pcb->exec_symbol=(char*) running->syscall_args[1];
+  new_pcb->exec_parameters=(void**) running->syscall_args[2];
+  
 }

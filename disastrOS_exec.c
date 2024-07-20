@@ -7,31 +7,37 @@
 #include <stdlib.h>
 
 void internal_exec() {
-	printf("qui si!1\n");
+	
+	//carico il percorso, la funzione da utilizzare e i parametri da passare alla funzione
 	char* path = (char*) running->syscall_args[0];
     char* symbol = (char*) running->syscall_args[1];
     void** parameters=(void**) running->syscall_args[2];
+    
+    //carica la libreria dinamica
 	void* lib= dlopen(path, RTLD_LAZY);
 	if(lib==NULL){
-		printf(stderr, "dlopen error: %s\n", dlerror());
+		printf("dlopen error: %s\n", dlerror()); //errore
+		running->syscall_retvalue = DSOS_EEXEC;
 		return;
 	}
-	printf("qui pure\n");
-	
     
     dlerror();    /* Clear any existing error */
-   	void (*start_function)(void*) = (void (*)(void*)) dlsym(lib, symbol);
-  char* error = dlerror();
-  if (error != NULL) {
-    fprintf(stderr, "dlsym error: %s\n", error);
-    dlclose(lib);
     
-  }
+    //carica la funzione della libreria dinamica
+	void (*start_function)(void*) = (void (*)(void*)) dlsym(lib, symbol);
+	char* error = dlerror();
+	if (error != NULL) {
+		printf("dlsym error: %s\n", error); //errore
+		dlclose(lib);
+		running->syscall_retvalue = DSOS_EEXEC;
+		return;
+    
+	}
   
-  (*start_function)(parameters);  
+	(*start_function)(parameters); //invoco la funzione passando i parametri
 
   
-  dlclose(lib);
+	dlclose(lib); //chiudo la libreria
 
   
 }
