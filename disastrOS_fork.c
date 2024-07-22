@@ -9,7 +9,7 @@ void internal_fork() {
   static PCB* new_pcb;
   new_pcb=PCB_alloc();
   if (!new_pcb) {
-    running->syscall_retvalue=DSOS_ESPAWN;
+    running->syscall_retvalue=DSOS_EFORK;
     return;
   } 
 

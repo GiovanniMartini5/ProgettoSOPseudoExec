@@ -196,6 +196,9 @@ void disastrOS_printStatus(){
   else{
    printf("niente\n");
   }
+  if(running->syscall_retvalue==DSOS_EEXEC){
+	printf("C'è stato un errore nella exec, provare a modificare qualcosa");
+  }
   printf("\n***********************************************\n\n");
   
   

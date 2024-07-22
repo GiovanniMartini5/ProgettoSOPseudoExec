@@ -8,7 +8,7 @@ void internal_vfork() {
 	static PCB* new_pcb;
   new_pcb=PCB_alloc();
   if (!new_pcb) {
-    running->syscall_retvalue=DSOS_ESPAWN;
+    running->syscall_retvalue=DSOS_EVFORK;
     return;
   } 
 
@@ -29,9 +29,14 @@ void internal_vfork() {
   running->syscall_retvalue=new_pcb->pid;
   
   //setta il nuovo processo in modo tale da chiamare la exec
+  if(new_pcb->PCB_exec!=1){
   new_pcb->PCB_exec=1;
   new_pcb->exec_path=(char*) running->syscall_args[0];
   new_pcb->exec_symbol=(char*) running->syscall_args[1];
   new_pcb->exec_parameters=(void**) running->syscall_args[2];
+  }
+  else{
+	printf("il processo esegue già un'altra exec, riprovare più tardi\n");
+  }
   
 }

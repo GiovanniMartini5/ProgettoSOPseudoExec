@@ -52,7 +52,13 @@ PCB* PCB_alloc() {
   pcb->parent=0;
   pcb->timer=0;
   List_init(&pcb->children);
+  
+  //inizializzo delle variabili per l'exec
   pcb->PCB_exec=0;
+  pcb->exec_path=NULL;
+  pcb->exec_symbol=NULL;
+  pcb->exec_parameters=NULL;
+  
   
   //MemoryInfo_init(&pcb->memory);
   //CPUState_init(&pcb->cpu);

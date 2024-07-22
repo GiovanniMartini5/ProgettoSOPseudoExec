@@ -24,6 +24,8 @@ typedef struct PCB{
   ListHead children;
   ucontext_t cpu_state;
   struct TimerItem *timer;
+  
+  //creo delle variabili per l'exec
   int PCB_exec;
   char* exec_path;
   char* exec_symbol;

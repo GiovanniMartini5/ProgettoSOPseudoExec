@@ -14,25 +14,6 @@ void initFunction(void* args) {
   // or a system call
 
   
-  //ia call the newly installed syscall - we should get an error :)
-  int revert_and_preempt_retval = 0;
-  printf("revert and preempt \n");
-  revert_and_preempt_retval = disastrOS_revertAndPreempt();
-  if (revert_and_preempt_retval == DSOS_EREVERT_AND_PREEMPT) {
-    printf("ERROR, empty ready list\n");
-  }
-  disastrOS_printStatus();
-  /*disastrOS_exec("./functions.so", "example_function", NULL);
-  int params1=1;
-  int params2=2;
-  void* parameters[]={&params1,&params2};
-  disastrOS_exec("./functions.so", "calculate", parameters);
-  char nome[] = "Giovanni";
-  char cognome[] = "Martini";
-  int matricola=1801491;
-  void* parameters2[]={nome,cognome,&matricola};
-  disastrOS_exec("./functions.so", "identity", parameters2);*/
-  
   // now we are in init
   // we pretend to fork
   printf("vfork ");
@@ -57,29 +38,28 @@ void initFunction(void* args) {
   disastrOS_printStatus();
 
   // parent forks three times
-  printf("vfork ");
+  printf("Generiamo 3 processi: 2 che eseguiranno exec, 1 no\n");
+  
   int params1=1;
   int params2=2;
   void* parameters[]={&params1,&params2};
   fork_result = disastrOS_vfork("./functions.so", "calculate", parameters);
-  printf(" child pid: %d\n", fork_result);
-  disastrOS_printStatus();
-  printf("vfork ");
+  printf(" child pid vfork: %d\n", fork_result);
+  
   char nome[] = "Giovanni";
   char cognome[] = "Martini";
   int matricola=1801491;
   void* parameters2[]={nome,cognome,&matricola};
   fork_result = disastrOS_vfork("./functions.so", "identity", parameters2);
-  printf(" child pid: %d\n", fork_result);
-  disastrOS_printStatus();
-  printf("fork ");
+  printf(" child pid vfork: %d\n", fork_result);
+  
   fork_result = disastrOS_fork();
   printf(" child pid: %d\n", fork_result);
   disastrOS_printStatus();
 
   //ia call the newly installed syscall - no error this time
   printf("revert and preempt \n");
-  revert_and_preempt_retval = disastrOS_revertAndPreempt();
+  int revert_and_preempt_retval = disastrOS_revertAndPreempt();
   if (revert_and_preempt_retval == DSOS_EREVERT_AND_PREEMPT) {
     printf("ERROR, empty ready list");
   }

@@ -24,7 +24,7 @@ void internal_exec() {
     dlerror();    /* Clear any existing error */
     
     //carica la funzione della libreria dinamica
-	void (*start_function)(void*) = (void (*)(void*)) dlsym(lib, symbol);
+	void (*start_function)(void**) = (void (*)(void**)) dlsym(lib, symbol);
 	char* error = dlerror();
 	if (error != NULL) {
 		printf("dlsym error: %s\n", error); //errore
